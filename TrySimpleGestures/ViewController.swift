@@ -53,7 +53,10 @@ class ViewController: UIViewController {
             guard let t = touches.first else { return }
             self.points.append(t.location(in: self.view))
             print(self.points)
-            print(motion(points: self.points))
+            let ponits1 = motion(points: self.points)
+            print(ponits1)
+            let dirs = parseDirection(points: ponits1)
+            print(dirs)
         }
 
     }
@@ -83,6 +86,81 @@ class ViewController: UIViewController {
         return res;
     }
     
+    
+    private func parseDirection(points: Array<CGPoint>) -> Array<Int> {
+        var res : Array<Int> = []
+        let len = points.count - 2
+        for i in 0...len {
+            let p1:CGPoint = points[i]
+            let p2:CGPoint = points[i+1]
+            let a = p1.y - p2.y
+            let b = self.distance(p1: p1, p2: p2)
+            let rad = asin( a/b )
+            let ang = rad * 57.2957800; // rad * 180/Math.PI
+            let quad = self.quadrant(p1: p1, p2: p2)
+            let dir = self.getDirByAngQuad(ang: ang, quad: quad)
+            res.append(dir);
+        }
+        
+        return res
+    }
+    
+    private func quadrant(p1: CGPoint,p2:CGPoint) -> Int {
+        if(p2.x>=p1.x) {
+            if( p2.y <= p1.y ) {
+                return 1;
+            } else {
+                return 4;
+            }
+        } else {
+            if( p2.y <= p1.y ) {
+                return 2;
+            } else {
+                return 3;
+            }
+        }
+    }
+    
+    private func getDirByAngQuad(ang: CGFloat,quad: Int) -> Int {
+        switch(quad) {
+        case 1:
+            if( ang <= 22.5 && ang >= 0 ) {
+                return 1;
+            }
+            else if( ang <= 67.5 && ang > 22.5 ) {
+                return 8;
+            } else {
+                return 7;
+            }
+        case 2:
+            if( ang <= 22.5 && ang >= 0 ) {
+                return 5;
+            } else if( ang <= 67.5 && ang > 22.5 ) {
+                return 6;
+            } else {
+                return 7;
+            }
+        case 3:
+            if( ang <= -67.5 && ang >= -90 ) {
+                return 3;
+            } else if( ang <= -22.5 && ang > -67.5 ) {
+                return 4;
+            } else {
+                return 5;
+            }
+        case 4:
+            if( ang <= -67.5 && ang >= -90 ) {
+                return 3;
+            } else if( ang <= -22.5 && ang > -67.5) {
+                return 2;
+            } else {
+                return 1;
+            }
+        default:
+            return 0
+        }
+       
+    }
     
 }
 
