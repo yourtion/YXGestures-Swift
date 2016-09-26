@@ -57,6 +57,8 @@ class ViewController: UIViewController {
             print(ponits1)
             let dirs = parseDirection(points: ponits1)
             print(dirs)
+            let str = repDiff(dirs: dirs)
+            print(str)
         }
 
     }
@@ -103,6 +105,18 @@ class ViewController: UIViewController {
         }
         
         return res
+    }
+    
+    private func repDiff(dirs: Array<Int>) -> String {
+        var str_arr: Array<Int> = []
+        var currentType = -1
+        for dir in dirs {
+            if(dir != currentType) {
+                str_arr.append(dir)
+                currentType = dir
+            }
+        }
+        return str_arr.map({"\($0)"}).joined(separator: "")
     }
     
     private func quadrant(p1: CGPoint,p2:CGPoint) -> Int {
