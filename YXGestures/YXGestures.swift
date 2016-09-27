@@ -1,86 +1,37 @@
 //
-//  ViewController.swift
-//  TrySimpleGestures
+//  YXGestures.swift
+//  YXGestures
 //
-//  Created by YourtionGuo on 26/09/2016.
+//  Created by YourtionGuo on 27/09/2016.
 //  Copyright © 2016 YourtionGuo. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
-extension String {
-    func charAt(i: Int) -> String {
-        let index = self.index(self.startIndex, offsetBy: i)
-        return String(self.characters[index])
-    }
-}
-
-class ViewController: UIViewController {
-    
+public class YXGestures {
     let MIN_DIS : CGFloat = 30
+    let MIN_SCORE : Float = 0.4
     
     let symbol = ["28", "46", "141", "585"]
-    let symbolG = ["V","V", "Z","Z"]
+    let symbolG = ["V", "V", "Z", "Z"]
     
-    private var points : Array<CGPoint> = []
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
+    open var points : Array<CGPoint> = []
+    private let utils = YXGUtils()
     
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        print("event begin!")
+    public init() {
         
-        if touches.count == 1 {
-            guard let t = touches.first else { return }
-            self.points.removeAll()
-            self.points.append(t.location(in: self.view))
-        }
     }
     
-    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if touches.count == 1 {
-            guard let t = touches.first else { return }
-            self.points.append(t.location(in: self.view))
-        }
-        
-        
-        for touch: AnyObject in touches {
-            let t:UITouch = touch as! UITouch
-            print(t.location(in: self.view))
-        }
-    }
-    
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        print("event end!")
-        if touches.count == 1 {
-            guard let t = touches.first else { return }
-            self.points.append(t.location(in: self.view))
-            print(self.points)
-            let ponits1 = motion(points: self.points)
-            print(ponits1)
-            let dirs = parseDirection(points: ponits1)
-            print(dirs)
-            let str = repDiff(dirs: dirs)
-            print(str)
-            let res = sweep(str: str)
-            print(res)
-        }
-
-    }
-    
-    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
-        print("event canceled!")
-    }
-    
-    private func distance(p1: CGPoint, p2: CGPoint) -> CGFloat {
-        return sqrt(pow(p2.x-p1.x,2)+pow(p2.y-p1.y,2))
+    public func getResult() -> String {
+        let ponits1 = motion(points: self.points)
+        print(ponits1)
+        let dirs = parseDirection(points: ponits1)
+        print(dirs)
+        let str = repeatDiff(dirs: dirs)
+        print(str)
+        let res = sweep(str: str)
+        print(res)
+        return res
     }
     
     private func motion(points: Array<CGPoint>) -> Array<CGPoint> {
@@ -90,10 +41,10 @@ class ViewController: UIViewController {
         for i in 0...len {
             let p1:CGPoint = points[i]
             let p2:CGPoint = points[currentIndex]
-            let distance = self.distance(p1: p1, p2: p2)
+            let distance = utils.distance(p1: p1, p2: p2)
             if distance > MIN_DIS  {
-                currentIndex = i;
-                res.append(p1);
+                currentIndex = i
+                res.append(p1)
             }
         }
         
@@ -108,7 +59,7 @@ class ViewController: UIViewController {
             let p1:CGPoint = points[i]
             let p2:CGPoint = points[i+1]
             let a = p1.y - p2.y
-            let b = self.distance(p1: p1, p2: p2)
+            let b = utils.distance(p1: p1, p2: p2)
             let rad = asin( a/b )
             let ang = rad * 57.2957800; // rad * 180/Math.PI
             let quad = self.quadrant(p1: p1, p2: p2)
@@ -119,7 +70,7 @@ class ViewController: UIViewController {
         return res
     }
     
-    private func repDiff(dirs: Array<Int>) -> String {
+    private func repeatDiff(dirs: Array<Int>) -> String {
         var str_arr: Array<Int> = []
         var currentType = -1
         for dir in dirs {
@@ -185,75 +136,63 @@ class ViewController: UIViewController {
         default:
             return 0
         }
-       
+        
     }
     
-    private func sweep( str:String ) -> String
-    {
+    private func sweep( str:String ) -> String {
         var maxType: String = ""
         var max: Float = -1
         let len = self.symbol.count - 1
         for i in 0...len {
-            let val = self.Levenshtein_Distance_Percent(s: self.symbol[i], t: str)
+            let val = self.levenshteinDistancePercent(s: self.symbol[i], t: str)
             if val > max {
                 max = val;
                 maxType = self.symbolG[i];
             }
         }
         print(max)
-        if max < 0.4 {
+        if max < MIN_SCORE {
             maxType = ""
         }
         return maxType;
     }
     
-    private func  Levenshtein_Distance_Percent(s:String, t:String) -> Float {
-        print("---",s,t)
+    private func  levenshteinDistancePercent(s:String, t:String) -> Float {
         let l = Float(s.characters.count > t.characters.count ? s.characters.count : t.characters.count)
-        let d = Float(self.Levenshtein_Distance(s: s, t: t))
+        let d = Float(self.levenshteinDistance(s: s, t: t))
         return ( 1.0 - d / l ) //.toFixed(4)
     }
     
-    private func Levenshtein_Distance(s:String, t:String) -> Int {
+    private func levenshteinDistance(s:String, t:String) -> Int {
         let n = s.characters.count // length of s
         let m = t.characters.count // length of t
         var d: Array<Array<Int>> = [[]] // matrix
-        var s_i = ""// ith character of s
-        var t_j = ""// jth character of t
-        var cost = 0// cost
-        // Step 1
+        var s_i = "" // ith character of s
+        var t_j = "" // jth character of t
+        var cost = 0
         if n == 0 { return m }
         if m == 0 { return n }
-        // Step 2
+        
         for i in 0...n {
             d.append([i])
             for j in 0...m{
                 d[i].append(j)
             }
         }
-        // Step 3
+        
         for i in 1...n {
             s_i = s.charAt(i: i-1)
-            // Step 4
             for j in 1...m {
                 t_j = t.charAt(i: j - 1)
-                // Step 5
                 if (s_i == t_j) {
                     cost = 0
                 }else{
                     cost = 1
                 }
-                // Step 6
-                d[i][j] = self.Minimum (a: d[i-1][j]+1, b: d[i][j-1]+1, c: d[i-1][j-1] + cost)
+                d[i][j] = utils.minimum(a: d[i-1][j]+1, b: d[i][j-1]+1, c: d[i-1][j-1] + cost)
             }
         }
-        // Step 7
         return d[n][m]
     }
     
-    private  func Minimum(a:Int,b:Int,c:Int) -> Int{
-        return a < b ? (a < c ? a : c) : (b < c ? b : c)
-    }
-    
 }
-
