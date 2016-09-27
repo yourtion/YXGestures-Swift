@@ -8,9 +8,19 @@
 
 import UIKit
 
+extension String {
+    func charAt(i: Int) -> String {
+        let index = self.index(self.startIndex, offsetBy: i)
+        return String(self.characters[index])
+    }
+}
+
 class ViewController: UIViewController {
     
     let MIN_DIS : CGFloat = 30
+    
+    let symbol = ["28", "46", "141", "585"]
+    let symbolG = ["V","V", "Z","Z"]
     
     private var points : Array<CGPoint> = []
 
@@ -59,6 +69,8 @@ class ViewController: UIViewController {
             print(dirs)
             let str = repDiff(dirs: dirs)
             print(str)
+            let res = sweep(str: str)
+            print(res)
         }
 
     }
@@ -174,6 +186,73 @@ class ViewController: UIViewController {
             return 0
         }
        
+    }
+    
+    private func sweep( str:String ) -> String
+    {
+        var maxType: String = ""
+        var max: Float = -1
+        let len = self.symbol.count - 1
+        for i in 0...len {
+            let val = self.Levenshtein_Distance_Percent(s: self.symbol[i], t: str)
+            if val > max {
+                max = val;
+                maxType = self.symbolG[i];
+            }
+        }
+        print(max)
+        if max < 0.4 {
+            maxType = ""
+        }
+        return maxType;
+    }
+    
+    private func  Levenshtein_Distance_Percent(s:String, t:String) -> Float {
+        print("---",s,t)
+        let l = Float(s.characters.count > t.characters.count ? s.characters.count : t.characters.count)
+        let d = Float(self.Levenshtein_Distance(s: s, t: t))
+        return ( 1.0 - d / l ) //.toFixed(4)
+    }
+    
+    private func Levenshtein_Distance(s:String, t:String) -> Int {
+        let n = s.characters.count // length of s
+        let m = t.characters.count // length of t
+        var d: Array<Array<Int>> = [[]] // matrix
+        var s_i = ""// ith character of s
+        var t_j = ""// jth character of t
+        var cost = 0// cost
+        // Step 1
+        if n == 0 { return m }
+        if m == 0 { return n }
+        // Step 2
+        for i in 0...n {
+            d.append([i])
+            for j in 0...m{
+                d[i].append(j)
+            }
+        }
+        // Step 3
+        for i in 1...n {
+            s_i = s.charAt(i: i-1)
+            // Step 4
+            for j in 1...m {
+                t_j = t.charAt(i: j - 1)
+                // Step 5
+                if (s_i == t_j) {
+                    cost = 0
+                }else{
+                    cost = 1
+                }
+                // Step 6
+                d[i][j] = self.Minimum (a: d[i-1][j]+1, b: d[i][j-1]+1, c: d[i-1][j-1] + cost)
+            }
+        }
+        // Step 7
+        return d[n][m]
+    }
+    
+    private  func Minimum(a:Int,b:Int,c:Int) -> Int{
+        return a < b ? (a < c ? a : c) : (b < c ? b : c)
     }
     
 }
