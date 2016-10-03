@@ -51,4 +51,21 @@ class YXGUtilsTests: XCTestCase {
         XCTAssertEqual(-2, res5)
     }
     
+    func testStringExtension() {
+        let str = "Yourtion"
+        
+        XCTAssertEqual("Y", str.charAt(i: 0))
+        XCTAssertEqual("o", str.charAt(i: 1))
+        XCTAssertEqual("u", str.charAt(i: 2))
+        XCTAssertEqual("r", str.charAt(i: 3))
+        XCTAssertEqual("t", str.charAt(i: 4))
+        XCTAssertEqual("i", str.charAt(i: 5))
+        XCTAssertEqual("o", str.charAt(i: 6))
+        XCTAssertEqual("n", str.charAt(i: 7))
+        
+        XCTAssertEqual("", str.charAt(i: 8))
+        
+        XCTAssertEqual("", str.charAt(i: -1))
+    }
+    
 }

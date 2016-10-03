@@ -10,6 +10,8 @@ import Foundation
 
 extension String {
     func charAt(i: Int) -> String {
+        if i < 0  { return "" }
+        if i >= self.characters.count { return "" }
         let index = self.index(self.startIndex, offsetBy: i)
         return String(self.characters[index])
     }
