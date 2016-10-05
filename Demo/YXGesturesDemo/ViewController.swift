@@ -27,16 +27,18 @@ class ViewController: UIViewController {
         print("event begin!")
         
         if touches.count == 1 {
-            guard let t = touches.first else { return }
-            gestures.points.removeAll()
-            gestures.points.append(t.location(in: self.view))
+            if let t = touches.first {
+                gestures.points.removeAll()
+                gestures.points.append(t.location(in: self.view))
+            }
         }
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         if touches.count == 1 {
-            guard let t = touches.first else { return }
-            gestures.points.append(t.location(in: self.view))
+            if let t = touches.first {
+                gestures.points.append(t.location(in: self.view))
+            }
         }
         
         
@@ -49,10 +51,11 @@ class ViewController: UIViewController {
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         print("event end!")
         if touches.count == 1 {
-            guard let t = touches.first else { return }
-            gestures.points.append(t.location(in: self.view))
-            print(gestures.points)
-            print(gestures.getResult())
+            if let t = touches.first {
+                gestures.points.append(t.location(in: self.view))
+                print(gestures.points)
+                print(gestures.getResult())
+            }
         }
         
     }

@@ -15,7 +15,7 @@ public class YXGestures {
     let symbol = ["28", "46", "141", "585"]
     let symbolG = ["V", "V", "Z", "Z"]
     
-    open var points : Array<CGPoint> = []
+    open var points = [CGPoint]()
     private let utils = YXGUtils()
     
     public init() {
@@ -34,13 +34,13 @@ public class YXGestures {
         return res
     }
     
-    private func motion(points: Array<CGPoint>) -> Array<CGPoint> {
-        var res : Array<CGPoint> = []
+    private func motion( points: [CGPoint] ) -> [CGPoint] {
+        var res = [CGPoint]()
         var currentIndex = 0
         let len = points.count - 1
         for i in 0...len {
-            let p1:CGPoint = points[i]
-            let p2:CGPoint = points[currentIndex]
+            let p1: CGPoint = points[i]
+            let p2: CGPoint = points[currentIndex]
             let distance = utils.distance(p1: p1, p2: p2)
             if distance > MIN_DIS  {
                 currentIndex = i
@@ -48,12 +48,12 @@ public class YXGestures {
             }
         }
         
-        return res;
+        return res
     }
     
     
-    private func parseDirection(points: Array<CGPoint>) -> Array<Int> {
-        var res : Array<Int> = []
+    private func parseDirection( points: [CGPoint] ) -> [Int] {
+        var res = [Int]()
         let len = points.count - 2
         for i in 0...len {
             let p1:CGPoint = points[i]
@@ -61,17 +61,17 @@ public class YXGestures {
             let a = p1.y - p2.y
             let b = utils.distance(p1: p1, p2: p2)
             let rad = asin( a/b )
-            let ang = rad * 57.2957800; // rad * 180/Math.PI
+            let ang = rad * 57.2957800 // rad * 180/Math.PI
             let quad = self.quadrant(p1: p1, p2: p2)
             let dir = self.getDirByAngQuad(ang: ang, quad: quad)
-            res.append(dir);
+            res.append(dir)
         }
         
         return res
     }
     
-    private func repeatDiff(dirs: Array<Int>) -> String {
-        var str_arr: Array<Int> = []
+    private func repeatDiff( dirs: [Int] ) -> String {
+        var str_arr = [Int]()
         var currentType = -1
         for dir in dirs {
             if(dir != currentType) {
@@ -82,56 +82,56 @@ public class YXGestures {
         return str_arr.map({"\($0)"}).joined(separator: "")
     }
     
-    private func quadrant(p1: CGPoint,p2:CGPoint) -> Int {
+    private func quadrant( p1: CGPoint, p2:CGPoint ) -> Int {
         if(p2.x>=p1.x) {
             if( p2.y <= p1.y ) {
-                return 1;
+                return 1
             } else {
-                return 4;
+                return 4
             }
         } else {
             if( p2.y <= p1.y ) {
-                return 2;
+                return 2
             } else {
-                return 3;
+                return 3
             }
         }
     }
     
-    private func getDirByAngQuad(ang: CGFloat,quad: Int) -> Int {
+    private func getDirByAngQuad( ang: CGFloat, quad: Int ) -> Int {
         switch(quad) {
         case 1:
             if( ang <= 22.5 && ang >= 0 ) {
-                return 1;
+                return 1
             }
             else if( ang <= 67.5 && ang > 22.5 ) {
-                return 8;
+                return 8
             } else {
-                return 7;
+                return 7
             }
         case 2:
             if( ang <= 22.5 && ang >= 0 ) {
-                return 5;
+                return 5
             } else if( ang <= 67.5 && ang > 22.5 ) {
-                return 6;
+                return 6
             } else {
-                return 7;
+                return 7
             }
         case 3:
             if( ang <= -67.5 && ang >= -90 ) {
-                return 3;
+                return 3
             } else if( ang <= -22.5 && ang > -67.5 ) {
-                return 4;
+                return 4
             } else {
-                return 5;
+                return 5
             }
         case 4:
             if( ang <= -67.5 && ang >= -90 ) {
-                return 3;
+                return 3
             } else if( ang <= -22.5 && ang > -67.5) {
-                return 2;
+                return 2
             } else {
-                return 1;
+                return 1
             }
         default:
             return 0
@@ -146,27 +146,27 @@ public class YXGestures {
         for i in 0...len {
             let val = self.levenshteinDistancePercent(s: self.symbol[i], t: str)
             if val > max {
-                max = val;
-                maxType = self.symbolG[i];
+                max = val
+                maxType = self.symbolG[i]
             }
         }
         print(max)
         if max < MIN_SCORE {
             maxType = ""
         }
-        return maxType;
+        return maxType
     }
     
-    private func  levenshteinDistancePercent(s:String, t:String) -> Float {
+    private func levenshteinDistancePercent( s:String, t:String ) -> Float {
         let l = Float(s.characters.count > t.characters.count ? s.characters.count : t.characters.count)
         let d = Float(self.levenshteinDistance(s: s, t: t))
         return ( 1.0 - d / l ) //.toFixed(4)
     }
     
-    private func levenshteinDistance(s:String, t:String) -> Int {
+    private func levenshteinDistance( s:String, t:String ) -> Int {
         let n = s.characters.count // length of s
         let m = t.characters.count // length of t
-        var d: Array<Array<Int>> = [[]] // matrix
+        var d = [[Int]]() // matrix
         var s_i = "" // ith character of s
         var t_j = "" // jth character of t
         var cost = 0
@@ -189,7 +189,7 @@ public class YXGestures {
                 }else{
                     cost = 1
                 }
-                d[i][j] = utils.minimum(a: d[i-1][j]+1, b: d[i][j-1]+1, c: d[i-1][j-1] + cost)
+                d[i][j] = utils.minimum(a: d[i-1][j]+1, b: d[i][j-1]+1, c: d[i-1][j-1]+cost)
             }
         }
         return d[n][m]
