@@ -12,11 +12,10 @@ public class YXGestures {
     let MIN_DIS : CGFloat = 30
     let MIN_SCORE : Float = 0.4
     
-    let symbol = ["28", "46", "141", "585"]
-    let symbolG = ["V", "V", "Z", "Z"]
-    
     open var points = [CGPoint]()
     private let utils = YXGUtils()
+    private var symbol = [String]()
+    private var symbolCode = [String]()
     
     public init() {
         
@@ -32,6 +31,11 @@ public class YXGestures {
         let res = sweep(str: str)
         print(res)
         return res
+    }
+    
+    public func add_symbol(symbol: String, code: String) {
+        self.symbol.append(symbol)
+        self.symbolCode.append(code)
     }
     
     private func motion( points: [CGPoint] ) -> [CGPoint] {
@@ -55,6 +59,7 @@ public class YXGestures {
     private func parseDirection( points: [CGPoint] ) -> [Int] {
         var res = [Int]()
         let len = points.count - 2
+        if len < 1 { return res }
         for i in 0...len {
             let p1:CGPoint = points[i]
             let p2:CGPoint = points[i+1]
@@ -142,15 +147,14 @@ public class YXGestures {
     private func sweep( str:String ) -> String {
         var maxType: String = ""
         var max: Float = -1
-        let len = self.symbol.count - 1
-        for i in 0...len {
-            let val = self.levenshteinDistancePercent(s: self.symbol[i], t: str)
+        let len = self.symbolCode.count
+        for i in 0..<len {
+            let val = self.levenshteinDistancePercent(s: self.symbolCode[i], t: str)
             if val > max {
                 max = val
-                maxType = self.symbolG[i]
+                maxType = self.symbol[i]
             }
         }
-        print(max)
         if max < MIN_SCORE {
             maxType = ""
         }

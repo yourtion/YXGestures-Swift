@@ -16,6 +16,10 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        gestures.add_symbol(symbol: "V", code: "28")
+        gestures.add_symbol(symbol: "V", code: "46")
+        gestures.add_symbol(symbol: "Z", code: "141")
+        gestures.add_symbol(symbol: "Z", code: "585")
     }
 
     override func didReceiveMemoryWarning() {
