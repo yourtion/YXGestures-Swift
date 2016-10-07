@@ -13,16 +13,6 @@ class YXGUtilsTests: XCTestCase {
     
     let utils = YXGUtils()
     
-    override func setUp() {
-        super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
-    
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-        super.tearDown()
-    }
-    
     func testDistance() {
         let res1 = utils.distance(p1: CGPoint(x:0, y:0), p2: CGPoint(x:3, y:4))
         XCTAssertEqual(5, res1)
