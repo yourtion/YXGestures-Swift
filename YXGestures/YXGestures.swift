@@ -14,8 +14,8 @@ public class YXGestures {
     
     open var points = [CGPoint]()
     private let utils = YXGUtils()
-    private var symbol = [String]()
-    private var symbolCode = [String]()
+    var symbol = [String]()
+    var symbolCode = [String]()
     
     public init() {
         
@@ -33,7 +33,7 @@ public class YXGestures {
         return res
     }
     
-    public func add_symbol(symbol: String, code: String) {
+    public func addSymbol(symbol: String, code: String) {
         self.symbol.append(symbol)
         self.symbolCode.append(code)
     }
