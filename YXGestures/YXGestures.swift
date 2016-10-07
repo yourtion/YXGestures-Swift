@@ -41,8 +41,7 @@ public class YXGestures {
     private func motion( points: [CGPoint] ) -> [CGPoint] {
         var res = [CGPoint]()
         var currentIndex = 0
-        let len = points.count - 1
-        for i in 0...len {
+        for i in 0..<points.count {
             let p1: CGPoint = points[i]
             let p2: CGPoint = points[currentIndex]
             let distance = utils.distance(p1: p1, p2: p2)
@@ -147,8 +146,7 @@ public class YXGestures {
     private func sweep( str:String ) -> String {
         var maxType: String = ""
         var max: Float = -1
-        let len = self.symbolCode.count
-        for i in 0..<len {
+        for i in 0..<self.symbolCode.count {
             let val = self.levenshteinDistancePercent(s: self.symbolCode[i], t: str)
             if val > max {
                 max = val
