@@ -11,6 +11,8 @@ import XCTest
 
 class YXGesturesTests: XCTestCase {
     
+    let gestures = YXGestures()
+    
     override func setUp() {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -21,16 +23,21 @@ class YXGesturesTests: XCTestCase {
         super.tearDown()
     }
     
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
-    
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
+    func testAddSymbole() {
+        let count1 = gestures.symbol.count
+        let count2 = gestures.symbolCode.count
+        
+        XCTAssertEqual(count1, count2)
+        
+        gestures.addSymbol(symbol: "V", code: "28")
+        XCTAssertEqual(gestures.symbol.count, count1 + 1)
+        XCTAssertEqual(gestures.symbolCode.count, count2 + 1)
+        XCTAssertEqual(count1, count2)
+        
+        gestures.addSymbol(symbol: "V", code: "46")
+        XCTAssertEqual(gestures.symbol.count, count1 + 2)
+        XCTAssertEqual(gestures.symbolCode.count, count2 + 2)
+        XCTAssertEqual(count1, count2)
     }
     
 }

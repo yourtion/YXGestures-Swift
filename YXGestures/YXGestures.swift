@@ -38,7 +38,7 @@ public class YXGestures {
         self.symbolCode.append(code)
     }
     
-    private func motion( points: [CGPoint] ) -> [CGPoint] {
+    func motion( points: [CGPoint] ) -> [CGPoint] {
         var res = [CGPoint]()
         var currentIndex = 0
         for i in 0..<points.count {
@@ -55,7 +55,7 @@ public class YXGestures {
     }
     
     
-    private func parseDirection( points: [CGPoint] ) -> [Int] {
+    func parseDirection( points: [CGPoint] ) -> [Int] {
         var res = [Int]()
         let len = points.count - 2
         if len < 1 { return res }
@@ -74,7 +74,7 @@ public class YXGestures {
         return res
     }
     
-    private func repeatDiff( dirs: [Int] ) -> String {
+    func repeatDiff( dirs: [Int] ) -> String {
         var str_arr = [Int]()
         var currentType = -1
         for dir in dirs {
@@ -86,7 +86,7 @@ public class YXGestures {
         return str_arr.map({"\($0)"}).joined(separator: "")
     }
     
-    private func quadrant( p1: CGPoint, p2:CGPoint ) -> Int {
+    func quadrant( p1: CGPoint, p2:CGPoint ) -> Int {
         if(p2.x>=p1.x) {
             if( p2.y <= p1.y ) {
                 return 1
@@ -102,7 +102,7 @@ public class YXGestures {
         }
     }
     
-    private func getDirByAngQuad( ang: CGFloat, quad: Int ) -> Int {
+    func getDirByAngQuad( ang: CGFloat, quad: Int ) -> Int {
         switch(quad) {
         case 1:
             if( ang <= 22.5 && ang >= 0 ) {
@@ -143,7 +143,7 @@ public class YXGestures {
         
     }
     
-    private func sweep( str:String ) -> String {
+    func sweep( str:String ) -> String {
         var maxType: String = ""
         var max: Float = -1
         for i in 0..<self.symbolCode.count {
@@ -159,13 +159,13 @@ public class YXGestures {
         return maxType
     }
     
-    private func levenshteinDistancePercent( s:String, t:String ) -> Float {
+    func levenshteinDistancePercent( s:String, t:String ) -> Float {
         let l = Float(s.characters.count > t.characters.count ? s.characters.count : t.characters.count)
         let d = Float(self.levenshteinDistance(s: s, t: t))
         return ( 1.0 - d / l ) //.toFixed(4)
     }
     
-    private func levenshteinDistance( s:String, t:String ) -> Int {
+    func levenshteinDistance( s:String, t:String ) -> Int {
         let n = s.characters.count // length of s
         let m = t.characters.count // length of t
         var d = [[Int]]() // matrix
