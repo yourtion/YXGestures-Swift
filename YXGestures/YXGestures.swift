@@ -28,9 +28,9 @@ public class YXGestures {
         print(dirs)
         let str = repeatDiff(dirs: dirs)
         print(str)
-        let res = sweep(str: str)
+        let res = sweepList(str: str)
         print(res)
-        return res
+        return sweep(dic: res)
     }
     
     public func addSymbol(symbol: String, code: String) {
@@ -143,18 +143,32 @@ public class YXGestures {
         
     }
     
-    func sweep( str:String ) -> String {
+    func sweep( dic:Dictionary<String, Float> ) -> String {
         var maxType: String = ""
         var max: Float = -1
-        for i in 0..<self.symbolCode.count {
-            let val = self.levenshteinDistancePercent(s: self.symbolCode[i], t: str)
+        for i in dic.keys {
+            guard let val = dic[i] else {
+                break
+            }
             if val > max {
                 max = val
-                maxType = self.symbol[i]
+                maxType = i
             }
         }
         if max < MIN_SCORE {
             maxType = ""
+        }
+        return maxType
+    }
+    
+    func sweepList( str:String ) -> Dictionary<String, Float> {
+        var maxType = Dictionary<String, Float>()
+        for i in 0..<self.symbolCode.count {
+            let val = self.levenshteinDistancePercent(s: self.symbolCode[i], t: str)
+            let symbol = self.symbol[i]
+            if (maxType[symbol] == nil || maxType[symbol]! < val) {
+                maxType[symbol] = val
+            }
         }
         return maxType
     }
