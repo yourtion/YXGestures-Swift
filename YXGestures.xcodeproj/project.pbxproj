@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CB18B8E11DAE93D4000522DD /* YXGesturesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB18B8E01DAE93D4000522DD /* YXGesturesView.swift */; };
 		CB55C6421D9ACC9A00D9AEF8 /* YXGestures.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB55C6381D9ACC9A00D9AEF8 /* YXGestures.framework */; };
 		CB55C6471D9ACC9A00D9AEF8 /* YXGesturesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB55C6461D9ACC9A00D9AEF8 /* YXGesturesTests.swift */; };
 		CB55C6491D9ACC9A00D9AEF8 /* YXGestures.h in Headers */ = {isa = PBXBuildFile; fileRef = CB55C63B1D9ACC9A00D9AEF8 /* YXGestures.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -26,6 +27,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		CB18B8E01DAE93D4000522DD /* YXGesturesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YXGesturesView.swift; sourceTree = "<group>"; };
 		CB55C6381D9ACC9A00D9AEF8 /* YXGestures.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = YXGestures.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB55C63B1D9ACC9A00D9AEF8 /* YXGestures.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YXGestures.h; sourceTree = "<group>"; };
 		CB55C63C1D9ACC9A00D9AEF8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -81,6 +83,7 @@
 				CB55C63C1D9ACC9A00D9AEF8 /* Info.plist */,
 				CB55C6991D9ACE7800D9AEF8 /* YXGUtils.swift */,
 				CB55C69B1D9ACE8300D9AEF8 /* YXGestures.swift */,
+				CB18B8E01DAE93D4000522DD /* YXGesturesView.swift */,
 			);
 			path = YXGestures;
 			sourceTree = "<group>";
@@ -207,6 +210,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CB55C69C1D9ACE8300D9AEF8 /* YXGestures.swift in Sources */,
+				CB18B8E11DAE93D4000522DD /* YXGesturesView.swift in Sources */,
 				CB55C69A1D9ACE7800D9AEF8 /* YXGUtils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
