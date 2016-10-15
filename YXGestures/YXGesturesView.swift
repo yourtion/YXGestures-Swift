@@ -12,12 +12,7 @@ class YXGesturesView: UIView {
     
     let gestures = YXGestures()
     
-    
-    
-    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        print("event begin!")
-        
         if touches.count == 1 {
             if let t = touches.first {
                 gestures.points.removeAll()
