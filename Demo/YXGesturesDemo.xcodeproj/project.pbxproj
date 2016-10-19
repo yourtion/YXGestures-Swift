@@ -14,6 +14,7 @@
 		CB55C6871D9ACD2600D9AEF8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CB55C6851D9ACD2600D9AEF8 /* LaunchScreen.storyboard */; };
 		CB55C6961D9ACE1300D9AEF8 /* YXGestures.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB55C6941D9ACE1000D9AEF8 /* YXGestures.framework */; };
 		CB55C6971D9ACE1300D9AEF8 /* YXGestures.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CB55C6941D9ACE1000D9AEF8 /* YXGestures.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		CB9BEFE71DB79E52006AEE81 /* YXGesturesDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB9BEFE61DB79E52006AEE81 /* YXGesturesDemo.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -39,6 +40,7 @@
 		CB55C6861D9ACD2600D9AEF8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CB55C6881D9ACD2600D9AEF8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CB55C6941D9ACE1000D9AEF8 /* YXGestures.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = YXGestures.framework; path = "../../../../Library/Developer/Xcode/DerivedData/YXGesturesDemo-aiguayobpcnrmzgfnommsjpbghnp/Build/Products/Debug-iphoneos/YXGestures.framework"; sourceTree = "<group>"; };
+		CB9BEFE61DB79E52006AEE81 /* YXGesturesDemo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YXGesturesDemo.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +81,7 @@
 				CB55C6831D9ACD2600D9AEF8 /* Assets.xcassets */,
 				CB55C6851D9ACD2600D9AEF8 /* LaunchScreen.storyboard */,
 				CB55C6881D9ACD2600D9AEF8 /* Info.plist */,
+				CB9BEFE61DB79E52006AEE81 /* YXGesturesDemo.swift */,
 			);
 			path = YXGesturesDemo;
 			sourceTree = "<group>";
@@ -167,6 +170,7 @@
 			files = (
 				CB55C67F1D9ACD2600D9AEF8 /* ViewController.swift in Sources */,
 				CB55C67D1D9ACD2600D9AEF8 /* AppDelegate.swift in Sources */,
+				CB9BEFE71DB79E52006AEE81 /* YXGesturesDemo.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
