@@ -8,11 +8,11 @@
 
 import Foundation
 
-class YXGesturesView: UIView {
+public class YXGesturesView: UIView {
     
-    let gestures = YXGestures()
+    open let gestures = YXGestures()
     
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    override public func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if touches.count == 1 {
             if let t = touches.first {
                 gestures.points.removeAll()
@@ -21,7 +21,7 @@ class YXGesturesView: UIView {
         }
     }
     
-    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+    override public func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         if touches.count == 1 {
             if let t = touches.first {
                 gestures.points.append(t.location(in: self))
@@ -29,7 +29,7 @@ class YXGesturesView: UIView {
         }
     }
     
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+    override public func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         if touches.count == 1 {
             if let t = touches.first {
                 gestures.points.append(t.location(in: self))
@@ -40,7 +40,7 @@ class YXGesturesView: UIView {
         
     }
     
-    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
+    override public func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
         gestures.points.removeAll()
     }
 }
