@@ -17,8 +17,23 @@ public class YXGestures {
     var symbol = [String]()
     var symbolCode = [String]()
     
-    public init() {
-        
+    init(symols: [String], codes: [String]) {
+        symbol = symols
+        symbolCode = codes
+    }
+    
+    public convenience init() {
+        self.init(symols: [String](), codes: [String]())
+    }
+    
+    public convenience init(symbols: [(String, Int)]) {
+        var tSymols = [String]()
+        var tCodes = [String]()
+        for symbol in symbols {
+            tSymols.append(symbol.0)
+            tCodes.append(String(symbol.1))
+        }
+        self.init(symols: tSymols, codes: tCodes)
     }
     
     public func getResult() -> String {
@@ -33,9 +48,9 @@ public class YXGestures {
         return sweep(dic: res)
     }
     
-    public func addSymbol(symbol: String, code: String) {
+    public func addSymbol(symbol: String, code: Int) {
         self.symbol.append(symbol)
-        self.symbolCode.append(code)
+        self.symbolCode.append(String(code))
     }
     
     func motion( points: [CGPoint] ) -> [CGPoint] {

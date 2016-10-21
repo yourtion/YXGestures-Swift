@@ -11,15 +11,13 @@ import YXGestures
 
 class YXGesturesDemo: UIViewController {
     
-    let gestures = YXGestures()
+    let gestures = YXGestures(symbols: [("V", 28),("V", 46)])
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        gestures.addSymbol(symbol: "V", code: "28")
-        gestures.addSymbol(symbol: "V", code: "46")
-        gestures.addSymbol(symbol: "Z", code: "141")
-        gestures.addSymbol(symbol: "Z", code: "585")
+        gestures.addSymbol(symbol: "Z", code: 141)
+        gestures.addSymbol(symbol: "Z", code: 585)
     }
     
     override func didReceiveMemoryWarning() {

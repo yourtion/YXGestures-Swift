@@ -20,10 +20,10 @@ class ViewController: UIViewController {
         gView.frame = self.view.frame
         self.view.addSubview(gView)
         
-        gView.gestures.addSymbol(symbol: "V", code: "28")
-        gView.gestures.addSymbol(symbol: "V", code: "46")
-        gView.gestures.addSymbol(symbol: "Z", code: "141")
-        gView.gestures.addSymbol(symbol: "Z", code: "585")
+        gView.gestures.addSymbol(symbol: "V", code: 28)
+        gView.gestures.addSymbol(symbol: "V", code: 46)
+        gView.gestures.addSymbol(symbol: "Z", code: 141)
+        gView.gestures.addSymbol(symbol: "Z", code: 585)
     }
     
     override func didReceiveMemoryWarning() {
