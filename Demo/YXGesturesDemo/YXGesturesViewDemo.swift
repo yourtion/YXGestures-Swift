@@ -20,6 +20,9 @@ class ViewController: UIViewController {
         gView.frame = self.view.frame
         self.view.addSubview(gView)
         
+//        gView.showPath = false
+        gView.lineWidth = 5
+        gView.lineColor = UIColor.blue
         gView.gestures.addSymbol(symbol: "V", code: 28)
         gView.gestures.addSymbol(symbol: "V", code: 46)
         gView.gestures.addSymbol(symbol: "Z", code: 141)
